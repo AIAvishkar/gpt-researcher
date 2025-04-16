@@ -27,7 +27,7 @@ async def write_text_to_md(text: str, path: str) -> str:
     Returns:
         str: The file path of the generated Markdown file.
     """
-    task = uuid.uuid4().hex
+    task = 'report'
     file_path = f"{path}/{task}.md"
     await write_to_file(file_path, text)
     print(f"Report written to {file_path}")
@@ -43,7 +43,7 @@ async def write_md_to_pdf(text: str, path: str) -> str:
     Returns:
         str: The encoded file path of the generated PDF.
     """
-    task = uuid.uuid4().hex
+    task = 'report'
     file_path = f"{path}/{task}.pdf"
 
     try:
@@ -75,7 +75,7 @@ async def write_md_to_word(text: str, path: str) -> str:
     Returns:
         str: The encoded file path of the generated DOCX.
     """
-    task = uuid.uuid4().hex
+    task = 'report'
     file_path = f"{path}/{task}.docx"
 
     try:

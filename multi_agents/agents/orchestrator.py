@@ -16,26 +16,29 @@ from . import \
     HumanAgent
 
 
+def _generate_task_id():
+        # Currently time based, but can be any unique identifier
+        return int(time.time())
+
 class ChiefEditorAgent:
     """Agent responsible for managing and coordinating editing tasks."""
 
-    def __init__(self, task: dict, websocket=None, stream_output=None, tone=None, headers=None):
+    def __init__(self, task: dict, websocket=None, stream_output=None, tone=None, headers=None, output_directory_path="./outputs/", task_id=_generate_task_id()):
         self.task = task
         self.websocket = websocket
         self.stream_output = stream_output
         self.headers = headers or {}
         self.tone = tone
-        self.task_id = self._generate_task_id()
+        self.task_id = task_id
+        self.output_directory_path = output_directory_path
         self.output_dir = self._create_output_directory()
 
-    def _generate_task_id(self):
-        # Currently time based, but can be any unique identifier
-        return int(time.time())
+    
 
     def _create_output_directory(self):
-        output_dir = "./outputs/" + \
+        output_dir = self.output_directory_path + \
             sanitize_filename(
-                f"run_{self.task_id}_{self.task.get('query')[0:40]}")
+                f"run_{self.task_id}")
 
         os.makedirs(output_dir, exist_ok=True)
         return output_dir
